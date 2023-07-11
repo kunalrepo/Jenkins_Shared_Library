@@ -10,10 +10,9 @@
 //     sh "docker image push ${hubUser}/${project}:latest"   
 // }
 
-
-def call(String aws_credentials, String region, String ecr_repoName) {
+def call(String aws_access_key, String aws_secret_key, String region, String ecr_repoName) {
     sh """
-     echo \$${AWS_Creds} | docker login --username AWS --password-stdin ${aws_account_id}.dkr.ecr.${region}.amazonaws.com
-     docker push ${aws_account_id}.dkr.ecr.${region}.amazonaws.com/${ecr_repoName}:latest
+     echo '${aws_access_key}' | docker login --username AWS --password-stdin ${params.aws_account_id}.dkr.ecr.${region}.amazonaws.com
+     docker push ${params.aws_account_id}.dkr.ecr.${region}.amazonaws.com/${ecr_repoName}:latest
     """
 }
